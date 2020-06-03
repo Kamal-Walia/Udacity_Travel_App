@@ -6,12 +6,10 @@ const trip = {
   country: 'France'
 };
 
-const handleSave = async () => {
-  const response = await request(trip);
-  return response;
-}
+const handleSave = async () => await request(trip)
 
-it('Should return an array that containt trip object', async function() {
+it('Should return an array containing trip object', async function() {
+
   const response = await handleSave();
   expect(response[0].country).toEqual('France');
 })

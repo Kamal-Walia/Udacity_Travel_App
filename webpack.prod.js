@@ -1,5 +1,3 @@
-const path = require('path');
-const webpack = require('webpack');
 const HTMLWebPackPlugin = require('html-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
@@ -20,11 +18,11 @@ module.exports = {
       {
         test: /\.(scss)$/,
         use: [{
-          loader: 'style-loader', // inject CSS to page
+          loader: 'style-loader',
         }, {
-          loader: 'css-loader', // translates CSS into CommonJS modules
+          loader: 'css-loader',
         }, {
-          loader: 'sass-loader' // compiles Sass to CSS
+          loader: 'sass-loader'
         }]
       },
       {

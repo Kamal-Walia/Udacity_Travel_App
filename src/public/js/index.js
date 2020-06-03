@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/style.scss';
+import '../css/style.min.scss';
 import 'bootstrap';
 const $ = require("jquery");
 import { getCity, getTripStart, getTripEnd } from './utils'
@@ -8,11 +8,8 @@ import { showModal, displayTrip } from './ui';
 
 const trip = {};
 
-/* Button handle functions */
-
-const handleSearch = async (e) => {
-  e.preventDefault();
-
+const handleSearch = async (evt) => {
+  evt.preventDefault();
   trip.city = getCity();
   trip.start = getTripStart();
   trip.end = getTripEnd();
@@ -35,9 +32,8 @@ const handleSearch = async (e) => {
   showModal(trip);
 }
 
-const handleSave = async (e) => {
-  e.preventDefault();
-
+const handleSave = async (evt) => {
+  evt.preventDefault();
   try {
     const response = await fetch('http://localhost:8080/save',
       {
@@ -55,16 +51,13 @@ const handleSave = async (e) => {
   }
 }
 
-const handleCancel = (e) => {
-  e.preventDefault();
+const handleCancel = (evt) => {
+  evt.preventDefault();
   $('#tripModal').modal('toggle');
   document.querySelector('.caption').style.display = 'block';
 }
 
-/* Add event listeners */
-
 document.getElementById('button_search').addEventListener('click', handleSearch);
-
 document.querySelector('.trip_save').addEventListener('click', handleSave)
 
 document.querySelectorAll('.trip_cancel').forEach(element => {

@@ -2,11 +2,31 @@ import { countdown } from './utils';
 import 'bootstrap';
 const $ = require("jquery");
 
-
 const getTripDate = (date) => {
-
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
 
   const tripDate = new Date(date);
   const tripDateText = `${days[tripDate.getDay()]}, ${months[tripDate.getMonth()]} ${tripDate.getDate()}, ${tripDate.getFullYear()}`;
@@ -14,8 +34,7 @@ const getTripDate = (date) => {
   return tripDateText;
 }
 
-const getWeatherInfo = (weatherForecast, daysLeft, date) => {
-
+const getWeatherInfo = (weatherForecast, date) => {
   const weather = {
     temperature: 0,
     summary: '',
@@ -25,12 +44,8 @@ const getWeatherInfo = (weatherForecast, daysLeft, date) => {
 
   weather.temperature = weatherForecast.data[0].temp;
   weather.summary = weatherForecast.data[0].weather.description;
-
   date = Date.parse(date);
-  /**
-    * Daily forecast returns forecasts for 8 days.
-    * Go through the array to match the correct day
-    */
+
   for (let i = 0; i < weatherForecast.data.length; i++) {
     if (date >= new Date(weatherForecast.data[i].last_ob_time).getTime()) {
       weather.forecastTemp = weatherForecast.data[i].temp;
@@ -42,7 +57,6 @@ const getWeatherInfo = (weatherForecast, daysLeft, date) => {
 }
 
 const showModal = (trip) => {
-
   document.querySelector('.caption').style.display = 'none';
 
   $('#tripModal').modal({
@@ -50,28 +64,17 @@ const showModal = (trip) => {
   })
 
   document.querySelector('.trip_title').innerHTML = `<img src="${trip.countryFlag}" class="flag"> ${trip.city}, ${trip.country}`;
-
-  // Display location, dates and the duration
   document.querySelectorAll('.media_heading')[0].innerText = `${trip.city}, ${trip.country}`;
-
-  //
   const tripStart = getTripDate(trip.start);
   const tripEnd = getTripDate(trip.end);
   document.querySelectorAll('.media_heading')[1].innerText = tripStart;
   document.querySelectorAll('.media_heading')[2].innerText = tripEnd;
 
   document.querySelectorAll('.media_heading')[3].innerText = `${countdown(trip.start, trip.end)} days`;
-
-  // Display trip images
-  // const imageURL = await getTripImageURL(images);
   document.querySelector('.images').setAttribute('src', trip.image);
-
-  // Display the days left to trip
   const daysLeft = countdown(new Date(), trip.start);
   document.querySelector('.trip_countdown').innerText = `Your trip to ${trip.city} is ${daysLeft} days away`;
-
-  // Display weather info
-  const weather = getWeatherInfo(trip.weatherForecast, daysLeft, tripStart);
+  const weather = getWeatherInfo(trip.weatherForecast, tripStart);
   if (daysLeft < 7) {
     document.querySelector('.trip_weather').innerHTML = `<p class="mt-1">The current weather:</p>
                                                        <p class="mt-1">${weather.temperature}&deg;F</p>
@@ -95,7 +98,7 @@ const displayTrip = (trip) => {
   const tripStart = getTripDate(trip.start);
   const tripEnd = getTripDate(trip.end);
   const daysLeft = countdown(new Date(), trip.start);
-  const weather = getWeatherInfo(trip.weatherForecast, daysLeft, tripStart);
+  const weather = getWeatherInfo(trip.weatherForecast, tripStart);
 
   const section = document.createElement('section');
   section.classList.add('trips');
@@ -103,7 +106,7 @@ const displayTrip = (trip) => {
   const div = document.createElement('div');
 
   div.innerHTML = `
-  <div class="card mb-3" style="max-width: 768px; margin: 0 auto">
+  <div class="card mb-3" style="max-width: 720px; margin: 0 auto">
     <div class="row no-gutters">
       <div class="col-md-4">
         <img src="${trip.image}" class="card-img" alt="Picture of Travel Destination">
@@ -127,4 +130,7 @@ const displayTrip = (trip) => {
   document.querySelector('.hero').appendChild(section);
 }
 
-export { showModal, displayTrip };
+export {
+  showModal,
+  displayTrip
+};

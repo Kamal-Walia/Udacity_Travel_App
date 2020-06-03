@@ -1,6 +1,6 @@
 # Udacity: Travel App
 
-Travel app helps you plan your trips. Simply enter the desired trip location and date; My Custom Travel App will display the current weather or weather forecast depending on the trip date and an image of the location using information obtained from external APIs.
+Travel app helps you plan your trips. Enter the desired trip location and date; The Travel App will display the current weather and an image of the location.
 
 ## API(s) Used
 
