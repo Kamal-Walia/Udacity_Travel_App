@@ -30,7 +30,3 @@ or
 ```
 npm run build-prod
 ```
-5. Test with Jest
-```
-npm run test
-```
